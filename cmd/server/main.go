@@ -8,9 +8,9 @@ import (
 )
 
 func main() {
-	fmt.Println("The Scan Visor")
+	fmt.Println("Starting up Server for Scan Visor")
 
-	http.HandleFunc("/hello", server.StatusCheck)
+	http.HandleFunc("/healthcheck", server.HealthCheck)
 
 	err := http.ListenAndServe(":9000", nil)
 

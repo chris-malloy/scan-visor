@@ -17,9 +17,9 @@ func TestServer(t *testing.T) {
 var _ = Describe("the route callbacks", func() {
 	Context("health check", func() {
 		It("responds appropriately", func() {
-			req := httptest.NewRequest("GET", "/StatusCheck", nil)
+			req := httptest.NewRequest("GET", "/healthcheck", nil)
 			w := httptest.NewRecorder()
-			StatusCheck(w, req)
+			HealthCheck(w, req)
 
 			res := w.Result()
 			body, _ := ioutil.ReadAll(res.Body)
