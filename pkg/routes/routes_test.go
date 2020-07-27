@@ -1,4 +1,4 @@
-package server
+package routes
 
 import (
 	. "github.com/onsi/ginkgo"
@@ -17,7 +17,7 @@ func TestServer(t *testing.T) {
 var _ = Describe("the route callbacks", func() {
 	Context("health check", func() {
 		It("responds appropriately", func() {
-			req := httptest.NewRequest("GET", "/healthcheck", nil)
+			req := httptest.NewRequest("GET", "/health", nil)
 			w := httptest.NewRecorder()
 			HealthCheck(w, req)
 

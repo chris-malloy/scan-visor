@@ -4,13 +4,15 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"scan-visor/pkg"
+	"scan-visor/pkg/routes"
+
+	// @todo figure out how to properly import other packages, probaly have to fix gopath
 )
 
 func main() {
 	fmt.Println("Starting up Server for Scan Visor")
 
-	http.HandleFunc("/healthcheck", server.HealthCheck)
+	http.HandleFunc("/health", routes.HealthCheck)
 
 	err := http.ListenAndServe(":9000", nil)
 
