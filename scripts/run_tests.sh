@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-go test ./pkg
+go test -v ./...
