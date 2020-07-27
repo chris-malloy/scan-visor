@@ -11,7 +11,7 @@ import (
 
 func TestServer(t *testing.T) {
 	RegisterFailHandler(Fail)
-	RunSpecs(t, "UnitTestSuite")
+	RunSpecs(t, "Routes Test Suite")
 }
 
 var _ = Describe("the route callbacks", func() {
