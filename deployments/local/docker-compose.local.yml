@@ -1,0 +1,17 @@
+version: "3.5"
+services:
+  scanvisor:
+    env_file: ./local.env
+    image: scanvisor:local
+    build:
+      context: ../../
+      dockerfile: ./build/Dockerfile
+    ports:
+      - "9000:9000"
+    networks:
+      scanvisor-net:
+
+networks:
+  scanvisor-net:
+    external: false
+    name: scanvisor-net
