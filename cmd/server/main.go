@@ -12,6 +12,7 @@ import (
 func main() {
 	fmt.Println("Starting up Server for Scan Visor")
 
+	http.HandleFunc("/", routes.Home)
 	http.HandleFunc("/health", routes.HealthCheck)
 
 	err := http.ListenAndServe(":9000", nil)

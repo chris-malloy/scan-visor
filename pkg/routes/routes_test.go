@@ -15,6 +15,20 @@ func TestServer(t *testing.T) {
 }
 
 var _ = Describe("the route callbacks", func() {
+	Context("home", func() {
+		It("is sweet", func() {
+			req := httptest.NewRequest("GET", "/", nil)
+			w := httptest.NewRecorder()
+			Home(w, req)
+
+			res := w.Result()
+			body, _ := ioutil.ReadAll(res.Body)
+
+			Expect(res.StatusCode).To(Equal(200))
+			Expect(res.Header.Get("Content-Type")).To(Equal("text/html"))
+			Expect(body).ToNot(BeNil())
+		})
+	})
 	Context("health check", func() {
 		It("responds appropriately", func() {
 			req := httptest.NewRequest("GET", "/health", nil)
