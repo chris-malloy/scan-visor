@@ -7,14 +7,14 @@ import (
 	"testing"
 )
 
-func TestServer(t *testing.T) {
+func TestRoutes(t *testing.T) {
 	RegisterFailHandler(Fail)
 	RunSpecs(t, "Routes Test Suite")
 }
 
-var _ = Describe("the route callbacks", func() {
-	Context("home", func() {
-		It("is sweet", func() {
+var _ = Describe("The Route Callbacks", func() {
+	Context("Home", func() {
+		It("Is Sweet", func() {
 			headers := make(http.Header)
 			headers.Add("Content-type", "text/html")
 			w, req := arrangeGet("/")
@@ -24,8 +24,9 @@ var _ = Describe("the route callbacks", func() {
 			assert(w, http.StatusOK, headers, "notNil")
 		})
 	})
-	Context("health check", func() {
-		It("responds appropriately", func() {
+	
+	Context("Health Check", func() {
+		It("Responds Appropriately", func() {
 			headers := make(http.Header)
 			headers.Add("Content-type", "application/json")
 			w, req := arrangeGet("/")
