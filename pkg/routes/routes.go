@@ -1,14 +1,18 @@
 package routes
 
 import (
-	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
 )
 
 type HealthStatus struct {
 	Status string `json:"status"`
+}
+
+type ErrorResponse struct {
+	Error string `json:"error"`
 }
 
 func Home(w http.ResponseWriter, r *http.Request) {
@@ -24,9 +28,23 @@ func Home(w http.ResponseWriter, r *http.Request) {
 func HealthCheck(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	err := json.NewEncoder(w).Encode(HealthStatus{"up"})
+	writeJsonOrFail(HealthStatus{"up"}, w)
+}
+
+func Login(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	handleBadMethod("POST", w, r)
+
+	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		log.Fatalf("could not encode json: %s\n", err.Error())
+		log.Printf("error reading body: %v", err)
+		w.WriteHeader(http.StatusBadRequest)
+		writeJsonOrFail(ErrorResponse{"error reading request body"}, w)
+	}
+
+	fmt.Println(body)
+	if len(body) == 0 {
+		w.WriteHeader(http.StatusBadRequest)
+		writeJsonOrFail(ErrorResponse{"body cannot be empty"}, w)
 	}
 }

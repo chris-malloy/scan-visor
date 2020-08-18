@@ -2,15 +2,16 @@ package routes
 
 import (
 	. "github.com/onsi/gomega"
+	"io"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"strings"
 )
 
-func arrangeGet(route string) (*httptest.ResponseRecorder, *http.Request)  {
+func arrangeRequest(method string, route string, body io.Reader) (*httptest.ResponseRecorder, *http.Request)  {
 	w := httptest.NewRecorder()
-	req := httptest.NewRequest("GET", route, nil)
+	req := httptest.NewRequest(method, route, body)
 	return w, req
 }
 
@@ -22,6 +23,7 @@ func assert(w *httptest.ResponseRecorder, expectedStatus int, expectedHeaders ht
 	for headerKey, headerValue := range expectedHeaders {
 		Expect(res.Header.Get(headerKey)).To(Equal(headerValue[0]))
 	}
+
 	if expectedBody == "notNil" {
 		Expect(body).ToNot(BeNil())
 	} else {

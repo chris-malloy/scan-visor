@@ -16,6 +16,8 @@ func main() {
 	http.HandleFunc("/", routes.Home)
 	http.HandleFunc("/health", routes.HealthCheck)
 
+	http.HandleFunc("/login", routes.Login)
+
 	port := os.Getenv("API_TCP_PORT")
 	if port == "" {
 		log.Println("API_TCP_PORT not set explicitly, defaulting to 9000")
